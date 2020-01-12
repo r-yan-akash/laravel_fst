@@ -41,8 +41,14 @@
                     {{'Deactivated'}}
                 @endif
             </td>
-            <td><a href="#" class="btn btn-warning">Delete</a>|
-            <a href="#" class="btn btn-primary">Edit</a></td>
+            <td>
+            <a href="{{route('myinfo.edit',$myinfo->id)}}" class="btn btn-primary">Edit</a>|
+                <form action="{{url('myinfo/'.$myinfo->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
         </tbody>

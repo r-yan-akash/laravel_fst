@@ -40,20 +40,39 @@ class MyinfoController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(myinfo $myinfo)
     {
-        //
+//        return $myinfo;
+        $data=[
+            'myinfo'=>$myinfo
+        ];
+        return view('myinfo.edit')->with($data);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, myinfo $myinfo)
     {
-        //
+        $myinfo->name=$request->name;
+        $myinfo->roll=$request->roll;
+        $myinfo->status=$request->status;
+        if($myinfo->save()){
+            Session::flash('success','Update successfully');
+            return redirect()->route('myinfo.index');
+        }else{
+            Session::flash('error','Something is wrong');
+            return redirect()->route('myinfo.index');
+        }
     }
 
-    public function destroy($id)
+    public function destroy(myinfo $myinfo)
     {
-        //
+        if ($myinfo->delete()){
+            Session::flash('success','Delete Successfully');
+            return back();
+        }else{
+            Session::flash('error','Something is error..!!');
+            return back();
+        }
     }
 
     private function validation(){
