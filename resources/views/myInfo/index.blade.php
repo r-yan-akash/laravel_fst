@@ -23,6 +23,7 @@
         <tr>
             <th>Serial</th>
             <th>Name</th>
+            <th>Departments</th>
             <th>Roll</th>
             <th>Status</th>
             <th>....</th>
@@ -33,6 +34,7 @@
             @foreach($myinfos as $key=>$myinfo)
             <td>{{$key+1}}</td>
             <td>{{$myinfo->name}}</td>
+            <td>{{$myinfo->department->department_name}}</td>
             <td>{{$myinfo->roll}}</td>
             <td>
                 @if($myinfo->status==1)

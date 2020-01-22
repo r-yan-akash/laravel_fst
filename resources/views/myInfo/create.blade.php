@@ -30,6 +30,19 @@
             @enderror
         </div>
         <div class="form-group">
+            <label>Departments</label>
+            <select name="department_id" class="form-control">
+                <option value="" disabled selected>----</option>
+                @foreach($departments as $department)
+                <option value="{{$department->id}}">
+                    {{$department->department_name}}</option>
+                    @endforeach
+            </select>
+            @error('department_id')
+            <div class="form-control-feedback">{{$message}}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             <label>Roll</label>
             <input class="form-control" name="roll">
             @error('roll')

@@ -42,15 +42,28 @@ class StudentController extends Controller
 
 
     // display all students
-    public function edit(Student $student)
+    public function edit(student $student)
     {
-        $student->delete();
-        return back();
+        $data=[
+            'student'=>$student
+        ];
+        return view('student.edit')->with($data);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, student $student)
     {
-        //
+        $student->name=$request->name;
+        $student->student_id=$request->student_id;
+        $student->mobile=$request->mobile;
+        $student->age=$request->age;
+        $student->status=$request->status;
+        if ($student->save()){
+            Session::flash('success','Update successfully');
+            return redirect()->route('student.index');
+        }else{
+            Session::flash('error','Update successfully');
+            return redirect()->route('student.index');
+        }
     }
 
 

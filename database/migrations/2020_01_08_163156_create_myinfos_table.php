@@ -13,7 +13,10 @@ class CreateMyinfosTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('roll');
+            $table->unsignedBigInteger('department_id');
             $table->tinyInteger('status')->default(1);
+            $table->foreign('department_id')->references('id')->on
+            ('departments')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

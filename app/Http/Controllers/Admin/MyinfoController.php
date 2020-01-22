@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Myinfo;
 use Session;
 use Illuminate\Http\Request;
@@ -12,14 +13,20 @@ class MyinfoController extends Controller
     public function index()
     {
         $data=[
-          'myinfos'=>Myinfo::all()
+//          'myinfos'=>Myinfo::all()
+            'myinfos'=>Myinfo::with('department')->get()
         ];
+//        dd($data['myinfos']);
+//        return $data['myinfos'];
         return view('myInfo.index')->with($data);
     }
 
     public function create()
     {
-        return view('myInfo.create');
+        $data=[
+            'departments'=>Department::orderBy('department_name','asc')->get()
+        ];
+        return view('myInfo.create')->with($data);
     }
 
     public function store(Request $request)
@@ -44,7 +51,8 @@ class MyinfoController extends Controller
     {
 //        return $myinfo;
         $data=[
-            'myinfo'=>$myinfo
+            'myinfo'=>$myinfo,
+            'departments'=>Department::orderBy('department_name','asc')->get()
         ];
         return view('myinfo.edit')->with($data);
     }
@@ -54,6 +62,7 @@ class MyinfoController extends Controller
     {
         $myinfo->name=$request->name;
         $myinfo->roll=$request->roll;
+        $myinfo->department_id=$request->department_id;
         $myinfo->status=$request->status;
         if($myinfo->save()){
             Session::flash('success','Update successfully');
@@ -78,7 +87,8 @@ class MyinfoController extends Controller
     private function validation(){
         return request()->validate([
             'name'=>'required',
-            'roll'=>'required|unique:myinfos|min:3'
+            'roll'=>'required|unique:myinfos|min:3',
+            'department_id'=>'required'
         ]);
     }
 

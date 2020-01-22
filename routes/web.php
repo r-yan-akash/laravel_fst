@@ -10,7 +10,7 @@ Route::get('/contact',function(){
 })->middleware('age');
 
 Route::get('about/','testController@index')->name('about');
-
+//-----Ariful-islam-vi-------
 Route::resource('/student','StudentController');
 Route::resource('/myinfo','Admin\MyinfoController');
 

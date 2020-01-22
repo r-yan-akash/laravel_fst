@@ -13,51 +13,35 @@
 <body>
 
 <div class="container">
-    <h3>Add Info</h3>
-    <hr>
-    <form style="margin:0 auto; max-width: 600px" action="{{route('myinfo.update',$myinfo->id)}}" method="post" enctype="multipart/form-data">
+
+    <form action="{{route('student.update',$student->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         {{--        alada kore bole dite hoi ki format  a data jasse server a. ok--}}
-        @if(Session::has('error'))
-            <p class="alert alert-warning">{{Session::get('error')}}</p>
-        @endif
         <div class="form-group">
             <label>Student Name</label>
-            <input type="text" class="form-control" value="{{$myinfo->name}}" name="name">
-            @error('name')
-            <div class="form-control-feedback">{{$message}}</div>
-            @enderror
+            <input type="text" class="form-control" value="{{$student->name}}" name="name">
         </div>
         <div class="form-group">
-            <label>Roll</label>
-            <input class="form-control" value="{{$myinfo->roll}}" name="roll">
-            @error('roll')
-            <div class="form-control-feedback">{{$message}}</div>
-            @enderror
+            <label>Student ID</label>
+            <input class="form-control" value="{{$student->student_id}}" name="student_id">
         </div>
         <div class="form-group">
-            <label>Departments</label>
-            <select name="department_id" class="form-control">
-                @foreach($departments as $department)
-                    <option value="{{$department->id}}@if($department->id
-                    ==$myinfo->department_id) selected @endif">
-                        {{$department->department_name}}</option>
-                @endforeach
-            </select>
-            @error('department_id')
-            <div class="form-control-feedback">{{$message}}</div>
-            @enderror
+            <label>Mobile</label>
+            <input class="form-control" value="{{$student->mobile}}" name="mobile">
         </div>
         <div class="form-group">
-            <label for="status">Status</label>
+            <label>Age</label>
+            <input type="number " value="{{$student->age}}" class="form-control" name="age">
+        </div>
+        <div class="form-group">
             <select name="status" class="form-control">
-                <option value="1" @if($myinfo->status==1) selected="" @endif>Active</option>
-                <option value="0" @if($myinfo->status==0) selected=""@endif>Deactivated</option>
+                <option value="1" @if($student->status==1)selected="" @endif>Active</option>
+                <option value="0" @if($student->status==0)selected="" @endif>Deactivate</option>
             </select>
         </div>
         <div class="form-group">
-            <input type="submit" value="Upload" class="form-control btn btn-success"  style="max-width: 100px;">
+            <input type="submit" value="Save" class="form-control btn btn-success"  style="max-width: 100px;">
         </div>
     </form>
 
