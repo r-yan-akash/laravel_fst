@@ -14,3 +14,7 @@ Route::get('about/','testController@index')->name('about');
 Route::resource('/student','StudentController');
 Route::resource('/myinfo','Admin\MyinfoController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

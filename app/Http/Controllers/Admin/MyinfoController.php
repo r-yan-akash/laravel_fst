@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Myinfo;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,18 @@ class MyinfoController extends Controller
 {
     public function index()
     {
+        if(!Auth::check()){
+            return redirect('/');
+        }
+
         $data=[
 //          'myinfos'=>Myinfo::all()
-            'myinfos'=>Myinfo::with('department')->get()
-        ];
+//                'user_data'=>Auth::user(),
+                'myinfos'=>Myinfo::with('department')->get()
+            ];
 //        dd($data['myinfos']);
-//        return $data['myinfos'];
-        return view('myInfo.index')->with($data);
+//            return $data['user_data'];
+            return view('myInfo.index')->with($data);
     }
 
     public function create()

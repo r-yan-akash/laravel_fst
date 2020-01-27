@@ -4,16 +4,25 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <title>Hello, world!</title>
 </head>
 <body>
 
 <div class="container">
     <a href="{{route('myinfo.create')}}" class="btn btn-primary">Add info</a>
+    {{--    start-auth-logout--}}
+        <a class="btn btn-warning" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+         document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        {{--        end-auth-logout--}}
     <hr>
     @if(Session::has('success'))
     <p class="alert alert-success">{{Session::get('success')}}</p>
