@@ -217,6 +217,17 @@
                         </span>
                         @enderror
                     </div>
+                        <div class="group">
+                            <label for="user" class="label">Address</label>
+                            <input id="address" type="text" class="input @error('address') is-invalid @enderror"
+                                   name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+
+                            @error('address')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
                     <div class="group">
                         <label for="pass" class="label">Email</label>
                         <input id="email" type="email" class="input @error('email') is-invalid @enderror"

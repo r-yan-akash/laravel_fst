@@ -17,7 +17,6 @@ class CreateTeachersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('teacher_id',10);
-            $table->string('mobile',11);
             $table->integer('age')->default(0)->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
