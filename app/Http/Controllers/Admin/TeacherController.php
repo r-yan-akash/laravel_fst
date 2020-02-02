@@ -19,12 +19,20 @@ class TeacherController extends Controller
 
     public function create()
     {
-        //
+
+        return view('teacher.add');
     }
 
     public function store(Request $request)
     {
-        //
+        $teachers=$this->validation();
+        if (Teacher::create($teachers)){
+            Session::flash('success','Teacher created successfully');
+            return redirect()->route('teacher.index');
+        }else{
+            Session::flash('error','Something going to be wrong');
+            return redirect()->route('teacher.create');
+        }
     }
 
     public function show($id)
@@ -40,9 +48,16 @@ class TeacherController extends Controller
         return view('teacher.edit')->with($data);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, teacher $teacher)
     {
-        //
+        $teacher->name=$request->name;
+        $teacher->teacher_id=$request->teacher_id;
+        $teacher->age=$request->age;
+
+        if ($teacher->save()){
+            Session::flash('success','Teacher update successfully');
+            return redirect()->route('teacher.index');
+        }
     }
 
     public function destroy(teacher $teacher)
@@ -54,5 +69,12 @@ class TeacherController extends Controller
             Session::flash('error','Something is error..!!');
             return back();
         }
+    }
+    public function validation(){
+        return request()->validate([
+            'name'=>'required',
+            'teacher_id'=>'required|unique:teachers|max:3',
+            'age'=>'required|min:1|max:3'
+        ]);
     }
 }

@@ -50,6 +50,13 @@
             @enderror
         </div>
         <div class="form-group">
+            <label>Image</label>
+            <input class="form-control" type="file" name="image">
+            @error('image')
+            <div class="form-control-feedback">{{$message}}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             <input type="submit" value="Save" class="form-control btn btn-success"  style="max-width: 100px;">
         </div>
     </form>

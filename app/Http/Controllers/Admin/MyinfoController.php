@@ -5,17 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Myinfo;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MyinfoController extends Controller
 {
     public function index()
     {
-        if(!Auth::check()){
-            return redirect('/');
-        }
+//        if(!Auth::check()){
+//            return redirect('/');
+//        }
 
         $data=[
 //          'myinfos'=>Myinfo::all()
@@ -38,6 +40,14 @@ class MyinfoController extends Controller
     public function store(Request $request)
     {
         $infoData=$this->validation();
+        if (!empty($request->file('image'))) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = 'image'  . '_' . time() . '.' . $extension;
+            $path = $request->file('image')->storeAs('public/uploads/myinfo', $fileNameToStore);
+            $infoData['image'] =  str_replace("public/uploads/myinfo/", '', $path);
+        }
         if (Myinfo::create($infoData)){
             Session::flash('success','Info added successfullly');
             return redirect()->route('myinfo.index');
@@ -66,6 +76,26 @@ class MyinfoController extends Controller
 
     public function update(Request $request, myinfo $myinfo)
     {
+
+//        $image_path = "/storage/uploads/myinfo/".$myinfo->image;
+//        echo $image_path;
+//        exit();
+        if (!empty($request->file('image'))) {
+            Storage::delete('/uploads/myinfo/'.$myinfo->image);
+//            if(File::exists($image_path)) {
+//                echo "ok";
+//                exit();
+//                File::delete($image_path);
+//            }
+
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = 'image'  . '_' . time() . '.' . $extension;
+            $path = $request->file('image')->storeAs('public/uploads/myinfo', $fileNameToStore);
+            $myinfo->image =  str_replace("public/uploads/myinfo/", '', $path);
+        }
+
         $myinfo->name=$request->name;
         $myinfo->roll=$request->roll;
         $myinfo->department_id=$request->department_id;
@@ -78,7 +108,6 @@ class MyinfoController extends Controller
             return redirect()->route('myinfo.index');
         }
     }
-
     public function destroy(myinfo $myinfo)
     {
         if ($myinfo->delete()){
@@ -89,7 +118,6 @@ class MyinfoController extends Controller
             return back();
         }
     }
-
     private function validation(){
         return request()->validate([
             'name'=>'required',

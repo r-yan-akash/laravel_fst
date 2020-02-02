@@ -34,6 +34,7 @@
             <th>Name</th>
             <th>Departments</th>
             <th>Roll</th>
+            <th>image</th>
             <th>Status</th>
             <th>....</th>
         </tr>
@@ -45,6 +46,7 @@
             <td>{{$myinfo->name}}</td>
             <td>{{$myinfo->department->department_name}}</td>
             <td>{{$myinfo->roll}}</td>
+            <td><img src="{{asset('storage/uploads/myinfo/'.$myinfo->image)}}" alt="" height="100px" width="80px"></td>
             <td>
                 @if($myinfo->status==1)
                     {{'Active'}}
@@ -53,7 +55,9 @@
                 @endif
             </td>
             <td>
-            <a href="{{route('myinfo.edit',$myinfo->id)}}" class="btn btn-primary">Edit</a>|
+            <a href="{{route('myinfo.edit',$myinfo->id)}}"
+               class="btn btn-primary">Edit</a>|
+
                 <form action="{{url('myinfo/'.$myinfo->id)}}" method="POST">
                     @csrf
                     @method('DELETE')

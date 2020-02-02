@@ -14,6 +14,7 @@ class CreateMyinfosTable extends Migration
             $table->string('name');
             $table->integer('roll');
             $table->unsignedBigInteger('department_id');
+            $table->string('image');
             $table->tinyInteger('status')->default(1);
             $table->foreign('department_id')->references('id')->on
             ('departments')->onDelete('cascade')->onUpdate('cascade');

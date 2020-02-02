@@ -31,7 +31,7 @@
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{!! $teacher->name !!}</td>
-                <td>{!! $teacher->student_id !!}</td>
+                <td>{!! $teacher->teacher_id !!}</td>
                 <td>{!! $teacher->age !!}</td>
                 <td>
                     @if($teacher->status==1)

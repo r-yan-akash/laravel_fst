@@ -40,8 +40,8 @@
             <label>Departments</label>
             <select name="department_id" class="form-control">
                 @foreach($departments as $department)
-                    <option value="{{$department->id}}@if($department->id
-                    ==$myinfo->department_id) selected @endif">
+                    <option value="{{$department->id}}" @if($department->id
+                    ==$myinfo->department_id) selected @endif>
                         {{$department->department_name}}</option>
                 @endforeach
             </select>
@@ -50,10 +50,18 @@
             @enderror
         </div>
         <div class="form-group">
+            <label>Image</label>
+            <img src="{{asset('storage/uploads/myinfo/'.$myinfo->image)}}" height="50px" width="50px" alt="">
+            <input class="form-control" type="file" name="image">
+            @error('image')
+            <div class="form-control-feedback">{{$message}}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             <label for="status">Status</label>
             <select name="status" class="form-control">
-                <option value="1" @if($myinfo->status==1) selected="" @endif>Active</option>
-                <option value="0" @if($myinfo->status==0) selected=""@endif>Deactivated</option>
+                <option value="1" @if($myinfo->status==1) selected @endif>Active</option>
+                <option value="0" @if($myinfo->status==0) selected @endif>Deactivated</option>
             </select>
         </div>
         <div class="form-group">
