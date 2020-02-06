@@ -44,14 +44,6 @@
             <input type="submit" value="Save" class="form-control btn btn-success"  style="max-width: 100px;">
         </div>
     </form>
-
-
-
-
-
-
-
-
 </div>
 
 <!-- Optional JavaScript -->

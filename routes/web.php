@@ -8,6 +8,14 @@ Route::get('home',function(){
 Route::get('/contact',function(){
     return view('contact');
 })->middleware('age');
+//for admin theme
+Route::get('/admin-it',function(){
+    return view('Backend.index');
+});
+Route::get('/content',function(){
+    return view('Backend.pages.contact.create');
+});
+//end
 
 Route::get('about/','testController@index')->name('about');
 //-----Ariful-islam-vi-------
@@ -47,3 +55,5 @@ Route::group(['prefix' => 'employee'], function () {
   Route::get('/password/reset', 'Employee\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'Employee\Auth\ResetPasswordController@showResetForm');
 });
+
+

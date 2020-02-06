@@ -77,11 +77,11 @@ class MyinfoController extends Controller
     public function update(Request $request, myinfo $myinfo)
     {
 
-//        $image_path = "/storage/uploads/myinfo/".$myinfo->image;
+        $image_path = "/storage/uploads/myinfo/".$myinfo->image;
 //        echo $image_path;
 //        exit();
         if (!empty($request->file('image'))) {
-            Storage::delete('/uploads/myinfo/'.$myinfo->image);
+            Storage::delete('/uploads/myinfo/'.$image_path);
 //            if(File::exists($image_path)) {
 //                echo "ok";
 //                exit();
@@ -122,7 +122,8 @@ class MyinfoController extends Controller
         return request()->validate([
             'name'=>'required',
             'roll'=>'required|unique:myinfos|min:3',
-            'department_id'=>'required'
+            'department_id'=>'required',
+            'image'=>'required'
         ]);
     }
 
